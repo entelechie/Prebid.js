@@ -4,10 +4,9 @@ import { config } from '../src/config'
 import includes from 'core-js/library/fn/array/includes';
 import { registerBidder } from '../src/adapters/bidderFactory'
 
-const BIDDER_CODE = 'winner'
-const ALIAS_BIDDER_CODE = ['gg']
+const BIDDER_CODE = 'appnexus'
+const ALIAS_BIDDER_CODE = ['appnexusAst']
 const BID_ENDPOINT = `https://evertbus.com/zion/tracker/bidder`
-const DT_CREDENTIALS = { member: 'YcXr87z2lpbB' }
 const TIME_TO_LIVE = 60
 
 let browserParams = {};
@@ -85,19 +84,7 @@ function _getTradeDeskIDParam(bidRequest) {
 
 // TODO: use getConfig()
 function _getDigiTrustQueryParams() {
-  function getDigiTrustId () {
-    var digiTrustUser = (window.DigiTrust && window.DigiTrust.getUser) ? window.DigiTrust.getUser(DT_CREDENTIALS) : {};
-    return (digiTrustUser && digiTrustUser.success && digiTrustUser.identity) || '';
-  };
-
-  let digiTrustId = getDigiTrustId();
-  // Verify there is an ID and this user has not opted out
-  if (!digiTrustId || (digiTrustId.privacy && digiTrustId.privacy.optout)) {
-    return {};
-  }
-  return {
-    dt: digiTrustId.id
-  };
+  return {};
 }
 
 /**
